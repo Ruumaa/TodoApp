@@ -1,9 +1,9 @@
 'use client';
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
-import loginPic from '@/public/login.webp';
-import registerPic from '@/public/register.webp';
+import loginPic from '@/public/login2.webp';
+import registerPic from '@/public/register2.webp';
 
 const AuthForm = ({ isRegister, submit }) => {
   const {
@@ -105,17 +105,25 @@ const AuthForm = ({ isRegister, submit }) => {
           </form>
         </div>
       </div>
-      <div className="w-1/2 relative overflow-hidden rounded">
+      <div className="w-1/2 relative overflow-hidden rounded-r">
         {isRegister ? (
           <Image
             src={registerPic}
-            fill
+            layout="fill"
             sizes="(max-width: 768px) 100vw"
             objectFit="cover"
             alt="register-page"
+            placeholder="blur"
           />
         ) : (
-          <Image src={loginPic} fill objectFit="cover" alt="login-page" />
+          <Image
+            src={loginPic}
+            layout="fill"
+            sizes="(max-width: 768px) 100vw"
+            objectFit="cover"
+            alt="login-page"
+            placeholder="blur"
+          />
         )}
       </div>
     </div>

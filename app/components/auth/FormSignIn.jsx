@@ -19,6 +19,7 @@ const FormSignIn = () => {
     } else {
       toast.success('Login success');
       router.push('/');
+      router.refresh();
     }
   };
   return (

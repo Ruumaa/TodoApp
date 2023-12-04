@@ -1,10 +1,12 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import AuthForm from './AuthForm';
+import { toast } from 'react-toastify';
 
 const FormSignUp = () => {
+  const router = useRouter();
   const handleRegister = async (values) => {
-    console.log(values);
     const { username, email, password } = await values;
     const response = await fetch('/api/auth', {
       method: 'POST',
@@ -13,10 +15,14 @@ const FormSignUp = () => {
       },
       body: JSON.stringify({ username, email, password }),
     });
-    console.log(response);
 
     const result = await response.json();
     if (response.ok) {
+      toast.success(result.message);
+      router.push('/auth/sign-in');
+      router.refresh();
+    } else {
+      toast.error(result.message);
     }
   };
   return (

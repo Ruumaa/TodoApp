@@ -33,7 +33,6 @@ export const PATCH = async (req, context) => {
 export const DELETE = async (req, context) => {
   try {
     const { params } = context;
-    console.log(params);
     const todo = await prisma.todo.delete({
       where: {
         id: params.id,
@@ -44,6 +43,30 @@ export const DELETE = async (req, context) => {
     console.error(error);
     return NextResponse.json(
       { message: 'DELETE todo failed', error: error },
+      { status: 500 }
+    );
+  }
+};
+
+export const GET = async (req, context) => {
+  try {
+    const { params } = context;
+    const todo = await prisma.todo.findUnique({
+      where: {
+        id: params.id,
+      },
+    });
+    return NextResponse.json(
+      {
+        message: 'Get Todo success',
+        data: todo,
+      },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json(
+      { message: 'GET Todo failed', error: error },
       { status: 500 }
     );
   }
